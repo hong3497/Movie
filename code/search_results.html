@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>검색 결과</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>검색 결과</h1>
+    <div id="result"></div>
+  </header>
+
+  <section class="search-results">
+    <h2>검색어: <span id="search-query"></span></h2>
+    <ul id="movie-list">
+     
+    </ul>
+  </section>
+
+  <script>
+      
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get('query');
+
+     
+      if (query) {
+          document.getElementById('result').textContent = `검색어: "${query}"`;
+          
+      } else {
+          document.getElementById('result').textContent = "검색어를 입력해주세요";
+      }
+
+    
+      const movies = [
+        {
+          title: "Bat Man",
+          description: "베트맨 영화",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "Bat Man 2",
+          description: "베트맨 영화 2",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "Bat Man 3",
+          description: "베트맨 영화 3",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "BatMan 4",
+          description: "베트맨 영화 4",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "너의 모든것",
+          description: "너의 모든것 영화",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "퀸즈 갬빗",
+          description: "퀸즈 갬빗 영화",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "브레이킹 배드",
+          description: "브레이킹 배드 영화",
+          image: "https://picsum.photos/200/300",
+        },
+        {
+          title: "스폰지밥",
+          description: "스폰지밥 영화",
+          image: "https://picsum.photos/200/300",
+        },
+      ];
+
+     
+      const filteredMovies = movies.filter(movie => 
+          movie.title.includes(query.toLowerCase())
+      );
+
+      
+      const movieList = document.getElementById('movie-list');
+
+      if (filteredMovies.length > 0) {
+          filteredMovies.forEach(movie => {
+              const listItem = document.createElement('li');
+              listItem.innerHTML = `
+                  <img src="${movie.image}" alt="${movie.title}">
+                  <h3>${movie.title}</h3>
+                  <p>${movie.description}</p>
+              `;
+              movieList.appendChild(listItem);
+          });
+      } else {
+          movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
+      }
+  </script>
+</body>
+</html>
