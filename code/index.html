@@ -4,31 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>    
+    <title>영화 검색 사이트</title>    
 </head>
 <body>
     <h1>영화 검색 사이트</h1>
     <p>다양한 영화들을 찾아보세요</p>
 
     <div class="search-section">
-        <input type="search" id="movie-search" placeholder="영화제목을 검색하세요">
-        <button onclick="searchMovies()">Search</button>
+   
+        <input 
+            type="search" 
+            id="movie-search" 
+            placeholder="영화제목을 검색하세요"
+            aria-label="영화 검색 입력창"
+        >
+       
+        <button id="Click" onclick="searchMovies()">Search</button>
     </div>
 
-     <script>
+    <script>
+        
         function searchMovies() {
-            const query = document.getElementById('movie-search').value;
-            if(query) {
-                window.location.href= `search_results.html?query=${query}&genre=action`
-
-            }
-            else {
+            const query = document.getElementById('movie-search').value; 
+            if (query) {
+               
+                window.location.href = `search_results.html?query=${query}&genre=action`;
+            } else {
+                
                 alert('검색어를 입력해주세요!');
             }
-            
         }
-     </script>
-    
-    
+
+        document.getElementById('movie-search').addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                document.getElementById('Click').click(); 
+            }
+        });
+
+      
+    </script>
 </body>
 </html>
