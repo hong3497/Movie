@@ -38,10 +38,10 @@
       { title: "브레이킹 배드", description: "브레이킹 배드 영화", image: "https://picsum.photos/200/300" },
       { title: "스폰지밥", description: "스폰지밥 영화", image: "https://picsum.photos/200/300" }
     ];
-    const apiKey = 'hhttps://www.omdbapi.com/apikey.aspx?VERIFYKEY=ae8d3015-4419-4131-a84a-2e7fbd7552c2';
+    const apiKey = 'https://www.omdbapi.com/apikey.aspx?VERIFYKEY=ae8d3015-4419-4131-a84a-2e7fbd7552c2';
     async function fetchMovies() {
   try {
-    const response = await fetch('http://yourserver.com/api/movies');
+    const response = await fetch('https://www.omdbapi.com/apikey.aspx?VERIFYKEY=ae8d3015-4419-4131-a84a-2e7fbd7552c2');
     const movies = await response.json();
 
     const filteredMovies = movies.filter(movie =>
