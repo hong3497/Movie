@@ -38,6 +38,41 @@
       { title: "브레이킹 배드", description: "브레이킹 배드 영화", image: "https://picsum.photos/200/300" },
       { title: "스폰지밥", description: "스폰지밥 영화", image: "https://picsum.photos/200/300" }
     ];
+    const apiKey = 'hhttps://www.omdbapi.com/apikey.aspx?VERIFYKEY=ae8d3015-4419-4131-a84a-2e7fbd7552c2';
+    async function fetchMovies() {
+  try {
+    const response = await fetch('http://yourserver.com/api/movies');
+    const movies = await response.json();
+
+    const filteredMovies = movies.filter(movie =>
+      movie.title.toLowerCase().includes(query.toLowerCase())
+    );
+
+    const movieList = document.getElementById('movie-list');
+    movieList.innerHTML = "";
+
+    if (filteredMovies.length > 0) {
+      filteredMovies.forEach(movie => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <a href="movie_details.html?title=${encodeURIComponent(movie.title)}">
+            <img src="${movie.image}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.description}</p>
+          </a>
+        `;
+        movieList.appendChild(listItem);
+      });
+    } else {
+      movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
+    }
+  } catch (error) {
+    console.error('Error fetching movies:', error);
+    document.getElementById('movie-list').innerHTML = "<li>데이터를 가져오는 데 실패했습니다.</li>";
+  }
+}
+
+fetchMovies();
 
     const filteredMovies = movies.filter(movie => 
       movie.title.toLowerCase().replace(' ', '').includes(query.toLowerCase().replace(' ', ''))
