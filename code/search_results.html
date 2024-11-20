@@ -45,8 +45,9 @@
 
 
     const filteredMovies = movies.filter(movie =>
-      movie.title.toLowerCase().includes(query.toLowerCase())
-    );
+    movie.title.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))
+);
+
 
     const movieList = document.getElementById('movie-list');
     movieList.innerHTML = "";
@@ -64,11 +65,11 @@
         movieList.appendChild(listItem);
       });
     } else {
-      movieList.innerText = "<li>검색 결과가 없습니다.</li>";
+      movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
     }
   } catch (error) {
     console.errsor('Error fetching movies:', error);
-    document.getElementById('movie-list').innerText = "데이터를 가져오는 데 실패했습니다.";
+    document.getElementById('movie-list').innerHTML = "<b>데이터를 가져오는 데 실패했습니다.</b>";
   }
 }
 
