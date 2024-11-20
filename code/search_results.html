@@ -64,7 +64,7 @@
         movieList.appendChild(listItem);
       });
     } else {
-      movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
+      movieList.innerText = "<li>검색 결과가 없습니다.</li>";
     }
   } catch (error) {
     console.errsor('Error fetching movies:', error);
