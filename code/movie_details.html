@@ -13,13 +13,8 @@
       const urlParams = new URLSearchParams(window.location.search);
       const title = urlParams.get("title");
 
-<<<<<<< HEAD
-=======
-      const movie = movies.find((m) => m.title === title);
-
       const movieDetails = document.getElementById("movie-details");
 
->>>>>>> 22489c912ef2c635a1a984a93d8c43f469956be1
       if (movie) {
         movieDetails.innerHTML = `
         <img src="${movie.image}" alt="${movie.title}" style="width: 200px; height: 300px;">
