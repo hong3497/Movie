@@ -1,106 +1,24 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>영화 상세 페이지</title>
-</head>
-<body>
-  <h1>영화 상세 정보</h1>
-  <div id="movie-details">
-   
-  </div>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>영화 상세 페이지</title>
+  </head>
+  <body>
+    <h1>영화 상세 정보</h1>
+    <div id="movie-details"></div>
 
-  <script>
-   
-    const movies = [
-      { 
-        title: "Bat Man", 
-        description: "베트맨 영화", 
-        releaseYear: 1989, 
-        director: "Tim Burton",
-        actors: "Batman / Bruce Wayne: Michael Keaton    Joker: Jack Nicholson",
-        plot: "영화 배트맨 1(1989)은 고담시의 부패와 범죄를 막기 위해 배트맨이 조커와 맞서 싸우며 도시의 영웅으로 자리잡는 과정을 그린 이야기입니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "Bat Man 2", 
-        description: "베트맨 영화 2", 
-        releaseYear: 1992, 
-        director: "Tim Burton",
-        actors: "Batman / Bruce Wayne: Michael Keaton   Catwoman / Selina Kyle: Michelle Pfeiffer",
-        plot: "영화 배트맨 2(1992), 즉 배트맨 리턴즈는 배트맨이 고담시를 위협하는 악당 펭귄과 악녀 캣우먼의 음모를 막기 위해 다시 한 번 도시를 지키는 이야기를 그립니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "Bat Man 3", 
-        description: "베트맨 영화 3", 
-        releaseYear: 1995, 
-        director: "Joel Schumacher",
-        actors: "Batman / Bruce Wayne: Val Kilmer   Riddler / Edward Nygma: Jim Carrey",
-        plot: "영화 배트맨 3(1995), 즉 배트맨 포에버는 배트맨이 리들러와 투페이스라는 두 명의 강력한 악당에 맞서 싸우며, 새로운 동료 로빈과 함께 고담시를 구하는 이야기를 담고 있습니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "BatMan 4", 
-        description: "베트맨 영화 4", 
-        releaseYear: 1997, 
-        director: "Joel Schumacher",
-        actors: "Batman / Bruce Wayne: George Clooney   Mr. Freeze: Arnold Schwarzenegger",
-        plot: "영화 배트맨 4(1997), 즉 배트맨과 로빈은 배트맨과 그의 동료 로빈이 악당 미스터 프리즈와 포이즌 아이비의 음모에 맞서 싸우며 팀워크와 신뢰의 중요성을 배우는 이야기를 그립니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "너의 모든것", 
-        description: "너의 모든것", 
-        releaseYear: 2018, 
-        director: "Greg Berlanti",
-        actors: "Penn Badgley",
-        plot: "너의 모든 것은 사랑을 가장한 집착이 부른 위험한 집요함과 심리 스릴을 긴장감 넘치게 그려낸 드라마입니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "퀸즈갬빗", 
-        description: "퀸즈갬빗", 
-        releaseYear: 2020, 
-        director: "Scott Frank",
-        actors: "Anya Taylor-Joy",
-        plot: "퀸즈갬빗은 체스를 배경으로 한 천재 소녀의 치열한 성장과 내면의 갈등을 매혹적으로 그려낸 작품입니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "브레이킹 배드", 
-        description: "브레이킹 배드", 
-        releaseYear: 2008, 
-        director: "Vince Gilligan",
-        actors: "Bryan Cranston",
-        plot: "브레이킹 배드는 평범한 남자가 범죄 세계의 중심으로 변모하는 과정을 충격적이고 매혹적으로 그려낸 현대 드라마의 걸작입니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      { 
-        title: "스폰지밥", 
-        description: "스폰지밥", 
-        releaseYear: 1995, 
-        director: "Stephen Hillenburg",
-        actors: "SpongeBob",
-        plot: "유쾌하고 창의적인 해저 세계에서 스폰지밥과 친구들이 펼치는 웃음 가득한 모험 이야기입니다.",
-        image: "https://picsum.photos/200/300" 
-      },
-      
-    ];
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const title = urlParams.get("title");
 
-   
-    const urlParams = new URLSearchParams(window.location.search);
-    const title = urlParams.get('title'); 
+      const movie = movies.find((m) => m.title === title);
 
-    
-    const movie = movies.find(m => m.title === title);
+      const movieDetails = document.getElementById("movie-details");
 
-    const movieDetails = document.getElementById('movie-details');
-
-    
-    if (movie) {
-      movieDetails.innerHTML = `
+      if (movie) {
+        movieDetails.innerHTML = `
         <img src="${movie.image}" alt="${movie.title}" style="width: 200px; height: 300px;">
         <h2>${movie.title}</h2>
         <p><strong>설명:</strong> ${movie.description}</p>
@@ -111,10 +29,9 @@
         
        
       `;
-    } else {
-    
-      movieDetails.innerHTML = "<p>영화 정보를 찾을 수 없습니다.</p>";
-    }
-  </script>
-</body>
+      } else {
+        movieDetails.innerHTML = "<p>영화 정보를 찾을 수 없습니다.</p>";
+      }
+    </script>
+  </body>
 </html>
