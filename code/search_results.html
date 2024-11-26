@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>검색 결과</title>
+<<<<<<< HEAD
     <link rel="stylesheet" href="./style.css" />
+=======
+    <link rel="stylesheet" href="style.css" />
+>>>>>>> 22489c912ef2c635a1a984a93d8c43f469956be1
   </head>
   <body>
     <header>
@@ -22,6 +26,7 @@
       const query = urlParams.get("query");
 
       if (query) {
+<<<<<<< HEAD
         document.getElementById("search-query").textContent = query;
       }
 
@@ -75,6 +80,78 @@
       }
 
       fetchMovies();
+=======
+        document.getElementById("result").textContent = `검색어: "${query}"`;
+      } else {
+        document.getElementById("result").textContent = "검색어를 입력해주세요";
+      }
+
+      const apiKey = "http://www.omdbapi.com/?apikey=[62fbabdb]&";
+      async function fetchMovies() {
+        try {
+          const response = await fetch(
+            "http://www.omdbapi.com/?apikey=[62fbabdb]&"
+          );
+
+          const filteredMovies = apiKey.filter((movie) =>
+            movie.title
+              .toLowerCase()
+              .replace(/\s+/g, "")
+              .includes(query.toLowerCase().replace(/\s+/g, ""))
+          );
+
+          const movieList = document.getElementById("movie-list");
+          movieList.innerHTML = "";
+
+          if (filteredMovies.length > 0) {
+            filteredMovies.forEach((movie) => {
+              const listItem = document.createElement("li");
+              listItem.innerHTML = `
+          <a href="movie_details.html?title=${encodeURIComponent(movie.title)}">
+            <img src="${movie.image}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.description}</p>
+          </a>
+        `;
+              movieList.appendChild(listItem);
+            });
+          } else {
+            movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
+          }
+        } catch (error) {
+          console.errsor("Error fetching movies:", error);
+          document.getElementById("movie-list").innerHTML =
+            "<b>데이터를 가져오는 데 실패했습니다.</b>";
+        }
+      }
+
+      fetchMovies();
+
+      const filteredMovies = apiKey.filter((movie) =>
+        movie.title
+          .toLowerCase()
+          .replace(" ", "")
+          .includes(query.toLowerCase().replace(" ", ""))
+      );
+
+      const movieList = document.getElementById("movie-list");
+
+      if (filteredMovies.length > 0) {
+        filteredMovies.forEach((movie) => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+          <a href="movie_details.html?title=${encodeURIComponent(movie.title)}">
+            <img src="${movie.image}" alt="${movie.title}">
+            <h3>${movie.title}</h3>
+            <p>${movie.description}</p>
+          </a>
+        `;
+          movieList.appendChild(listItem);
+        });
+      } else {
+        movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
+      }
+>>>>>>> 22489c912ef2c635a1a984a93d8c43f469956be1
     </script>
   </body>
 </html>
