@@ -19,9 +19,8 @@
 
     <script>
       const urlParams = new URLSearchParams(window.location.search);
-      const query = urlParams.get("query"); // URL에서 query 파라미터 가져오기
+      const query = urlParams.get("query");
 
-      // 검색어를 표시
       if (query) {
         document.getElementById("search-query").textContent = query;
       }
@@ -30,11 +29,10 @@
       const BASE_URL = "http://www.omdbapi.com/";
 
       async function fetchMovies() {
-        // query가 없을 때 처리
         if (!query) {
           document.getElementById("result").textContent =
             "검색어를 입력해주세요";
-          return; // 함수 내부에 위치해야 SyntaxError가 발생하지 않습니다
+          return;
         }
 
         try {
@@ -59,7 +57,7 @@
 
       function displayMovies(movies) {
         const movieList = document.getElementById("movie-list");
-        movieList.innerHTML = ""; // 이전 내용을 초기화
+        movieList.innerHTML = "";
 
         movies.forEach((movie) => {
           const listItem = document.createElement("li");
@@ -76,7 +74,6 @@
         });
       }
 
-      // fetchMovies 함수 호출
       fetchMovies();
     </script>
   </body>
