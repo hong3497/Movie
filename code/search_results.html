@@ -1,101 +1,80 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>검색 결과</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-<body>
-  <header>
-    <h1>검색 결과</h1>
-    <div id="result"></div>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>검색 결과</title>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>검색 결과</h1>
+      <div id="result"></div>
+    </header>
 
-  <section class="search-results">
-    <h2>검색어: <span id="search-query"></span></h2>
-    <ul id="movie-list">
-    </ul>
-  </section>
+    <section class="search-results">
+      <h2>검색어: <span id="search-query"></span></h2>
+      <ul id="movie-list"></ul>
+    </section>
 
-  <script>
-    const urlParams = new URLSearchParams(window.location.search);
-    const query = urlParams.get('query');
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get("query");
 
-    if (query) {
-      document.getElementById('result').textContent = `검색어: "${query}"`;
-    } else {
-      document.getElementById('result').textContent = "검색어를 입력해주세요";
-    }
+      if (query) {
+        document.getElementById("search-query").textContent = query;
+      }
 
-    const movies = [
-      { title: "Bat Man", description: "베트맨 영화", image: "https://picsum.photos/200/300" },
-      { title: "Bat Man 2", description: "베트맨 영화 2", image: "https://picsum.photos/200/300" },
-      { title: "Bat Man 3", description: "베트맨 영화 3", image: "https://picsum.photos/200/300" },
-      { title: "BatMan 4", description: "베트맨 영화 4", image: "https://picsum.photos/200/300" },
-      { title: "너의 모든것", description: "너의 모든것 영화", image: "https://picsum.photos/200/300" },
-      { title: "퀸즈 갬빗", description: "퀸즈 갬빗 영화", image: "https://picsum.photos/200/300" },
-      { title: "브레이킹 배드", description: "브레이킹 배드 영화", image: "https://picsum.photos/200/300" },
-      { title: "스폰지밥", description: "스폰지밥 영화", image: "https://picsum.photos/200/300" }
-    ];
-    const apiKey = 'https://www.omdbapi.com/apikey.aspx?VERIFYKEY=ae8d3015-4419-4131-a84a-2e7fbd7552c2';
-    async function fetchMovies() {
-  try {
-    const response = await fetch('https://www.omdbapi.com/apikey.aspx?VERIFYKEY=ae8d3015-4419-4131-a84a-2e7fbd7552c2');
+      const API_KEY = "62fbabdb";
+      const BASE_URL = "http://www.omdbapi.com/";
 
+      async function fetchMovies() {
+        if (!query) {
+          document.getElementById("result").textContent =
+            "검색어를 입력해주세요";
+          return;
+        }
 
-    const filteredMovies = movies.filter(movie =>
-    movie.title.toLowerCase().replace(/\s+/g, '').includes(query.toLowerCase().replace(/\s+/g, ''))
-);
+        try {
+          const response = await fetch(
+            `${BASE_URL}?apikey=${API_KEY}&s=${encodeURIComponent(query)}`
+          );
+          const data = await response.json();
 
+          if (data.Response === "True") {
+            displayMovies(data.Search);
+          } else {
+            document.getElementById(
+              "movie-list"
+            ).innerHTML = `<li>${data.Error}</li>`;
+          }
+        } catch (error) {
+          console.error("Error fetching movies:", error);
+          document.getElementById("movie-list").innerHTML =
+            "<b>데이터를 가져오는 데 실패했습니다.</b>";
+        }
+      }
 
-    const movieList = document.getElementById('movie-list');
-    movieList.innerHTML = "";
+      function displayMovies(movies) {
+        const movieList = document.getElementById("movie-list");
+        movieList.innerHTML = "";
 
-    if (filteredMovies.length > 0) {
-      filteredMovies.forEach(movie => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-          <a href="movie_details.html?title=${encodeURIComponent(movie.title)}">
-            <img src="${movie.image}" alt="${movie.title}">
-            <h3>${movie.title}</h3>
-            <p>${movie.description}</p>
+        movies.forEach((movie) => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+          <a href="movie_details.html?title=${encodeURIComponent(movie.Title)}">
+            <img src="${movie.Poster}" alt="${
+            movie.Title
+          }" style="width: 100px; height: 150px;">
+            <h3>${movie.Title}</h3>
+            <p>출시년도: ${movie.Year}</p>
           </a>
         `;
-        movieList.appendChild(listItem);
-      });
-    } else {
-      movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
-    }
-  } catch (error) {
-    console.errsor('Error fetching movies:', error);
-    document.getElementById('movie-list').innerHTML = "<b>데이터를 가져오는 데 실패했습니다.</b>";
-  }
-}
+          movieList.appendChild(listItem);
+        });
+      }
 
-fetchMovies();
-
-    const filteredMovies = movies.filter(movie => 
-      movie.title.toLowerCase().replace(' ', '').includes(query.toLowerCase().replace(' ', ''))
-    );
-
-    const movieList = document.getElementById('movie-list');
-
-    if (filteredMovies.length > 0) {
-      filteredMovies.forEach(movie => {
-        const listItem = document.createElement('li');
-        listItem.innerHTML = `
-          <a href="movie_details.html?title=${encodeURIComponent(movie.title)}">
-            <img src="${movie.image}" alt="${movie.title}">
-            <h3>${movie.title}</h3>
-            <p>${movie.description}</p>
-          </a>
-        `;
-        movieList.appendChild(listItem);
-      });
-    } else {
-      movieList.innerHTML = "<li>검색 결과가 없습니다.</li>";
-    }
-  </script>
-</body>
+      fetchMovies();
+    </script>
+  </body>
 </html>
