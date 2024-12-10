@@ -3,33 +3,66 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>영화 상세 페이지</title>
+    <link rel="stylesheet" href="style.css" />
+    <title>영화 상세 정보</title>
+    <link rel="stylesheet" href="./style.css" />
   </head>
   <body>
-    <h1>영화 상세 정보</h1>
-    <div id="movie-details"></div>
+    <header>
+      <h1>영화 상세 정보</h1>
+      <div id="movie-detail"></div>
+    </header>
 
     <script>
       const urlParams = new URLSearchParams(window.location.search);
       const title = urlParams.get("title");
 
-      const movieDetails = document.getElementById("movie-details");
+      const API_KEY = "62fbabdb";
+      const BASE_URL = "http://www.omdbapi.com/";
 
-      if (movie) {
-        movieDetails.innerHTML = `
-        <img src="${movie.image}" alt="${movie.title}" style="width: 200px; height: 300px;">
-        <h2>${movie.title}</h2>
-        <p><strong>설명:</strong> ${movie.description}</p>
-        <p><strong>출시년도:</strong> ${movie.releaseYear}</p>
-        <p><strong>감독:</strong> ${movie.director}</p>
-        <p><strong>등장인물:</strong> ${movie.actors}</p>
-        <p><strong>줄거리:</strong> ${movie.plot}</p>
-        
-       
-      `;
-      } else {
-        movieDetails.innerHTML = "<p>영화 정보를 찾을 수 없습니다.</p>";
+      async function fetchMovieDetails() {
+        if (!title) {
+          document.getElementById("movie-detail").innerHTML =
+            "<b>영화 제목을 찾을 수 없습니다.</b>";
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `${BASE_URL}?apikey=${API_KEY}&t=${encodeURIComponent(title)}`
+          );
+
+          if (data.Response === "True") {
+            displayMovieDetails(data);
+          } else {
+            document.getElementById(
+              "movie-detail"
+            ).innerHTML = `<p>${data.Error}</p>`;
+          }
+        } catch (error) {
+          console.error("Error fetching movie details:", error);
+          document.getElementById("movie-detail").innerHTML =
+            "<b>데이터를 가져오는 데 실패했습니다.</b>";
+        }
       }
+
+      function displayMovieDetails(movie) {
+        const movieDetail = document.getElementById("movie-detail");
+
+        movieDetail.innerHTML = `
+          <img src="${movie.Poster}" alt="${movie.Title} 포스터" style="width: 200px; height: 300px;">
+          <h2>${movie.Title}</h2>
+          <p><b>출시년도:</b> ${movie.Year}</p>
+          <p><b>장르:</b> ${movie.Genre}</p>
+          <p><b>감독:</b> ${movie.Director}</p>
+          <p><b>출연진:</b> ${movie.Actors}</p>
+          <p><b>줄거리:</b> ${movie.Plot}</p>
+          <p><b>평점:</b> ${movie.imdbRating}</p>
+          <a href="./index.html">메인 페이지로 돌아가기</a>
+        `;
+      }
+
+      fetchMovieDetails();
     </script>
   </body>
 </html>
