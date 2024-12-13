@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./css/style.css" />
     <title>영화 검색 사이트</title>
   </head>
   <body>
@@ -25,7 +25,7 @@
       function searchMovies() {
         const query = document.getElementById("movie-search").value;
         if (query) {
-          window.location.href = `search_results.html?query=${query}&genre=action`;
+          window.location.href = `./pages/search_results.html?query=${query}&genre=action`;
         } else {
           alert("검색어를 입력해주세요!");
         }

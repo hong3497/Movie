@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>검색 결과</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="../css/style.css" />
   </head>
   <body>
     <header>
@@ -62,7 +62,9 @@
         movies.forEach((movie) => {
           const listItem = document.createElement("li");
           listItem.innerHTML = `
-          <a href="movie_details.html?title=${encodeURIComponent(movie.Title)}">
+          <a href="./movie_details.html?title=${encodeURIComponent(
+            movie.Title
+          )}">
             <img src="${movie.Poster}" alt="${
             movie.Title
           }" style="width: 100px; height: 150px;">
