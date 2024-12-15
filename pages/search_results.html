@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>검색 결과</title>
+    <link rel="stylesheet" href="../css/style.css" />
+  </head>
+  <body>
+    <header>
+      <h1>검색 결과</h1>
+      <div id="result"></div>
+    </header>
+
+    <section class="search-results">
+      <h2>검색어: <span id="search-query"></span></h2>
+      <ul id="movie-list"></ul>
+    </section>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const query = urlParams.get("query");
+
+      if (query) {
+        document.getElementById("search-query").textContent = query;
+      }
+
+      const API_KEY = "62fbabdb";
+      const BASE_URL = "http://www.omdbapi.com/";
+
+      async function fetchMovies() {
+        if (!query) {
+          document.getElementById("result").textContent =
+            "검색어를 입력해주세요";
+          return;
+        }
+
+        try {
+          const response = await fetch(
+            `${BASE_URL}?apikey=${API_KEY}&s=${encodeURIComponent(query)}`
+          );
+          const data = await response.json();
+
+          if (data.Response === "True") {
+            displayMovies(data.Search);
+          } else {
+            document.getElementById(
+              "movie-list"
+            ).innerHTML = `<li>${data.Error}</li>`;
+          }
+        } catch (error) {
+          console.error("Error fetching movies:", error);
+          document.getElementById("movie-list").innerHTML =
+            "<b>데이터를 가져오는 데 실패했습니다.</b>";
+        }
+      }
+
+      function displayMovies(movies) {
+        const movieList = document.getElementById("movie-list");
+        movieList.innerHTML = "";
+
+        movies.forEach((movie) => {
+          const listItem = document.createElement("li");
+          listItem.innerHTML = `
+          <a href="./movie_details.html?title=${encodeURIComponent(
+            movie.Title
+          )}">
+            <img src="${movie.Poster}" alt="${
+            movie.Title
+          }" style="width: 100px; height: 150px;">
+            <h3>${movie.Title}</h3>
+            <p>출시년도: ${movie.Year}</p>
+          </a>
+        `;
+          movieList.appendChild(listItem);
+        });
+      }
+
+      fetchMovies();
+    </script>
+  </body>
+</html>
