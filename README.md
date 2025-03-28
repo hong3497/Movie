@@ -1,6 +1,3 @@
-알겠어! 그럼 링크를 업데이트한 Readme는 아래와 같아:
-
-⸻
 
 Movie Search Website
 
@@ -34,6 +31,4 @@ License
 
 This project is open source and available for free.
 
-⸻
 
-이렇게 되면 완료! 혹시 추가할 부분이 있으면 말해줘 😊
