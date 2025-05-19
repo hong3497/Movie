@@ -1,34 +1,44 @@
+# 🎬 Movie Search Website
 
-Movie Search Website
+영화를 검색하고, 상세 정보를 확인하고, 리뷰를 남길 수 있는 웹 애플리케이션입니다. 사용자는 영화 제목으로 검색할 수 있으며, 포스터, 개봉일, 줄거리, 감독, 배우 등의 정보를 확인할 수 있습니다.
 
-A simple web application that allows users to search for movies by title and view detailed information about them. The app fetches movie data from the OMDb API and displays a list of related movies based on the search query.
+---
 
-Features
-	•	Search for movies: Enter a movie title and press the search button or hit Enter to get a list of related movies.
-	•	Movie details: Click on a movie poster to view detailed information about the selected movie, including title, year, plot, and more.
+## 🔍 주요 기능
 
-Tech Stack
-	•	Frontend: HTML, CSS, JavaScript
-	•	API: OMDb API for fetching movie data
+### ✅ 1. 랜딩 페이지
+- 웹사이트 소개
+- 운영자 추천 액션 영화 리스트 (`운영자 Pick`)
+- 영화 검색 입력창
 
-Installation & Running Locally
+### ✅ 2. 영화 검색 결과 페이지
+- 검색한 영화 리스트를 카드 형식으로 출력
+- 포스터, 제목, 개봉년도 요약 표시
+- 클릭 시 상세 정보 페이지로 이동
 
-Since this is a static site, there is no need for a server. You can easily clone this repository and open the index.html file in your browser.
-	1.	Clone the repository:
+### ✅ 3. 영화 상세 정보 페이지
+- 영화 포스터
+- 제목, 개봉일, 평점
+- 줄거리, 감독, 배우, 촬영지
+- 사용자 리뷰(댓글) 작성 및 조회 기능
+- 검색 결과로 돌아가기 버튼
 
-git clone https://github.com/your-username/movie-search-site.git
+---
 
+## 🛠️ 사용 기술
 
-	2.	Open index.html in your browser to start using the app.
+| 기능            | 기술 스택                   |
+|-----------------|-----------------------------|
+| 프론트엔드      | HTML, CSS, JavaScript       |
+| 백엔드 (선택 시) | Node.js, Express (옵션)     |
+| API             | OMDb API 또는 TMDB API 사용 |
+| 배포            | GitHub Pages / Netlify 등    |
 
-Deployment
+---
 
-This project is deployed using GitHub Pages and GitHub Actions for automatic deployment. You can view the live site here:
+## 💾 설치 및 실행 방법
 
-Live Demo
-
-License
-
-This project is open source and available for free.
-
-
+1. 이 저장소를 클론합니다.
+   ```bash
+   git clone https://github.com/your-username/movie-search-app.git
+   cd movie-search-app
